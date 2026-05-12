@@ -7,19 +7,54 @@ const styles = {
   page: {
     minHeight: '100vh',
     display: 'flex',
+    overflow: 'hidden',
+  },
+  leftPanel: {
+    flex: 1,
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
+    overflow: 'hidden',
+  },
+  leftImage: {
+    position: 'absolute',
+    inset: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+  leftOverlay: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(135deg, rgba(37,99,235,0.75) 0%, rgba(79,70,229,0.75) 100%)',
+  },
+  leftContent: {
+    position: 'relative',
+    zIndex: 1,
+    textAlign: 'center',
+    padding: '0 40px',
+    color: '#fff',
+  },
+  rightPanel: {
+    width: 480,
+    minWidth: 480,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '48px 40px',
+    background: 'linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)',
     position: 'relative',
     overflow: 'hidden',
-    background: 'linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%)',
   },
   blob1: {
     position: 'absolute',
-    top: -120,
+    top: -100,
     right: -80,
-    width: 320,
-    height: 320,
+    width: 280,
+    height: 280,
     borderRadius: 9999,
     background: 'linear-gradient(135deg, rgba(59,130,246,0.3), rgba(99,102,241,0.3))',
     filter: 'blur(50px)',
@@ -27,10 +62,10 @@ const styles = {
   },
   blob2: {
     position: 'absolute',
-    bottom: -120,
+    bottom: -100,
     left: -80,
-    width: 320,
-    height: 320,
+    width: 280,
+    height: 280,
     borderRadius: 9999,
     background: 'linear-gradient(135deg, rgba(244,114,182,0.25), rgba(167,139,250,0.25))',
     filter: 'blur(55px)',
@@ -38,7 +73,9 @@ const styles = {
   },
   wrapper: {
     width: '100%',
-    maxWidth: 420,
+    maxWidth: 400,
+    position: 'relative',
+    zIndex: 1,
   },
   logoBox: {
     height: 64,
@@ -114,6 +151,7 @@ const styles = {
     fontSize: 14,
     outline: 'none',
     transition: 'box-shadow .15s ease, border-color .15s ease',
+    boxSizing: 'border-box',
   },
   inputFocus: {
     borderColor: '#3B82F6',
@@ -223,19 +261,53 @@ const Login = () => {
 
   return (
     <div style={styles.page}>
-      <div style={styles.blob1} />
-      <div style={styles.blob2} />
 
-      <div style={styles.wrapper}>
-        {/* Logo and Title */}
-        <div style={styles.logoBox}>
-          <Building2 size={28} color="#fff" />
+      {/* Left Image Panel */}
+      <div style={styles.leftPanel}>
+        <img
+          src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="Real Estate"
+          style={styles.leftImage}
+        />
+        <div style={styles.leftOverlay} />
+        <div style={styles.leftContent}>
+          <Building2 size={48} color="#fff" style={{ marginBottom: 20 }} />
+          <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 12 }}>Real Estate Admin</h2>
+          <p style={{ fontSize: 16, opacity: 0.85, lineHeight: 1.6, maxWidth: 360 }}>
+            Manage properties, users, transactions and more from one powerful dashboard.
+          </p>
+          <div style={{ display: 'flex', gap: 32, justifyContent: 'center', marginTop: 40 }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 28, fontWeight: 800 }}>2,500+</div>
+              <div style={{ fontSize: 13, opacity: 0.8 }}>Properties</div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 28, fontWeight: 800 }}>98%</div>
+              <div style={{ fontSize: 13, opacity: 0.8 }}>Satisfaction</div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 28, fontWeight: 800 }}>50+</div>
+              <div style={{ fontSize: 13, opacity: 0.8 }}>Agents</div>
+            </div>
+          </div>
         </div>
-        <h1 style={styles.title}>Welcome back</h1>
-        <p style={styles.subtitle}>Sign in to Real Estate Admin</p>
+      </div>
 
-        {/* Login Card */}
-        <div style={styles.card}>
+      {/* Right Form Panel */}
+      <div style={styles.rightPanel}>
+        <div style={styles.blob1} />
+        <div style={styles.blob2} />
+
+        <div style={styles.wrapper}>
+          {/* Logo and Title */}
+          <div style={styles.logoBox}>
+            <Building2 size={28} color="#fff" />
+          </div>
+          <h1 style={styles.title}>Welcome back</h1>
+          <p style={styles.subtitle}>Sign in to Real Estate Admin</p>
+
+          {/* Login Card */}
+          <div style={styles.card}>
           <form onSubmit={handleSubmit} aria-busy={loading}>
             {/* Email Field */}
             <div style={{ marginBottom: 16 }}>
@@ -340,11 +412,12 @@ const Login = () => {
               <p><strong>Password:</strong> admin123</p>
             </div>
           </div>
-        </div>
+          </div>
 
-        {/* Footer */}
-        <div style={styles.footer}>
-          <p>© 2024 Real Estate Admin Panel. All rights reserved.</p>
+          {/* Footer */}
+          <div style={styles.footer}>
+            <p>© 2024 Real Estate Admin Panel. All rights reserved.</p>
+          </div>
         </div>
       </div>
     </div>
